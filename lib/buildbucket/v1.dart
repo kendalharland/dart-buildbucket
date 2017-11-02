@@ -1,6 +1,6 @@
 // This is a generated file (see the discoveryapis_generator project).
 
-library googleapis.buildbucket.v1;
+library buildbucket.buildbucket.v1;
 
 import 'dart:core' as core;
 import 'dart:async' as async;
@@ -18,7 +18,7 @@ const core.String USER_AGENT = 'dart-api-client buildbucket/v1';
 class BuildbucketApi {
   /// View your email address
   static const UserinfoEmailScope =
-      "https://www.googleapis.com/auth/userinfo.email";
+      "https://www.buildbucket.com/auth/userinfo.email";
 
   final commons.ApiRequester _requester;
 

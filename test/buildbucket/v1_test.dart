@@ -1,4 +1,4 @@
-library googleapis.buildbucket.v1.test;
+library buildbucket.buildbucket.v1.test;
 
 import "dart:core" as core;
 import "dart:async" as async;
@@ -7,7 +7,7 @@ import "dart:convert" as convert;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
-import 'package:googleapis/buildbucket/v1.dart' as api;
+import 'package:buildbucket/buildbucket/v1.dart' as api;
 
 class HttpServerMock extends http.BaseClient {
   core.Function _callback;

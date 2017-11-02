@@ -1,4 +1,6 @@
 name: buildbucket
+authors:
+        - Kendal Harland <kendal@kendalhar.land>
 version: 0.1.0-dev
 description: Auto-generated client libraries.
 environment:

@@ -7,7 +7,7 @@ import "dart:convert" as convert;
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart' as unittest;
 
-import 'package:buildbucket/buildbucket/v1.dart' as api;
+import 'package:buildbucket/buildbucket.dart' as api;
 
 class HttpServerMock extends http.BaseClient {
   core.Function _callback;

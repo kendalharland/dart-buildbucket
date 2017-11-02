@@ -1,7 +1,7 @@
-import 'package:buildbucket/buildbucket/v1.dart';
+import 'package:buildbucket/buildbucket.dart';
 import 'package:http/http.dart' as http;
 
-/// Fetches and displays a few stats for the complete builds from a single 
+/// Fetches and displays a few stats for the complete builds from a single
 /// bucket.
 /// Example usage: `dart example/fetch_bucket.dart luci.fuchsia.continuous`
 main(List<String> args) async {

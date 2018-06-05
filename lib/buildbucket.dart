@@ -1,5 +1,7 @@
 // This is a generated file (see the discoveryapis_generator project).
 
+// ignore_for_file: unnecessary_cast
+
 library buildbucket.buildbucket.v1;
 
 import 'dart:core' as core;
@@ -16,9 +18,9 @@ const core.String USER_AGENT = 'dart-api-client buildbucket/v1';
 
 /// API for scheduling builds.
 class BuildbucketApi {
-  /// View your email address
+  /// https://www.googleapis.com/auth/userinfo.email
   static const UserinfoEmailScope =
-      "https://www.buildbucket.com/auth/userinfo.email";
+      "https://www.googleapis.com/auth/userinfo.email";
 
   final commons.ApiRequester _requester;
 
@@ -47,7 +49,7 @@ class BuildbucketApi {
   async.Future backfillTagIndex(core.String tag, core.String shards,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -100,14 +102,14 @@ class BuildbucketApi {
       ApiCancelRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -147,14 +149,14 @@ class BuildbucketApi {
       ApiCancelBatchRequestMessage request,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -204,7 +206,7 @@ class BuildbucketApi {
       core.List<core.String> tag,
       core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -261,14 +263,14 @@ class BuildbucketApi {
       ApiFailRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -307,7 +309,7 @@ class BuildbucketApi {
   async.Future<ApiBuildResponseMessage> get(core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -350,7 +352,7 @@ class BuildbucketApi {
   async.Future<ApiBucketMessage> getBucket(core.String bucket,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -396,14 +398,14 @@ class BuildbucketApi {
       ApiHeartbeatRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -443,14 +445,14 @@ class BuildbucketApi {
       ApiHeartbeatBatchRequestMessage request,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -490,14 +492,14 @@ class BuildbucketApi {
       ApiLeaseRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -515,58 +517,6 @@ class BuildbucketApi {
         uploadMedia: _uploadMedia,
         downloadOptions: _downloadOptions);
     return _response.then((data) => new ApiBuildResponseMessage.fromJson(data));
-  }
-
-  /// Returns longest pending time among all SCHEDULED builds of a builder.
-  ///
-  /// Request parameters:
-  ///
-  /// [bucket] - null
-  ///
-  /// [builder] - null
-  ///
-  /// [$fields] - Selector specifying which fields to include in a partial
-  /// response.
-  ///
-  /// Completes with a [ApiLongestPendingTimeResponse].
-  ///
-  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
-  /// error.
-  ///
-  /// If the used [http.Client] completes with an error when making a REST call,
-  /// this method will complete with the same error.
-  async.Future<ApiLongestPendingTimeResponse> longestPendingTime(
-      core.String bucket, core.String builder,
-      {core.String $fields}) {
-    var _url = null;
-    var _queryParams = new core.Map();
-    var _uploadMedia = null;
-    var _uploadOptions = null;
-    var _downloadOptions = commons.DownloadOptions.Metadata;
-    var _body = null;
-
-    if (bucket == null) {
-      throw new core.ArgumentError("Parameter bucket is required.");
-    }
-    _queryParams["bucket"] = [bucket];
-    if (builder == null) {
-      throw new core.ArgumentError("Parameter builder is required.");
-    }
-    _queryParams["builder"] = [builder];
-    if ($fields != null) {
-      _queryParams["fields"] = [$fields];
-    }
-
-    _url = 'metrics/longest-pending-time';
-
-    var _response = _requester.request(_url, "GET",
-        body: _body,
-        queryParams: _queryParams,
-        uploadOptions: _uploadOptions,
-        uploadMedia: _uploadMedia,
-        downloadOptions: _downloadOptions);
-    return _response
-        .then((data) => new ApiLongestPendingTimeResponse.fromJson(data));
   }
 
   /// Pauses or unpause a bucket.
@@ -590,7 +540,7 @@ class BuildbucketApi {
   async.Future<ApiPauseResponse> pause(core.String bucket, core.bool isPaused,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -644,7 +594,7 @@ class BuildbucketApi {
       core.String startCursor,
       core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -694,14 +644,14 @@ class BuildbucketApi {
   async.Future<ApiBuildResponseMessage> put(ApiPutRequestMessage request,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -738,14 +688,14 @@ class BuildbucketApi {
       ApiPutBatchRequestMessage request,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
@@ -782,7 +732,7 @@ class BuildbucketApi {
   async.Future<ApiBuildResponseMessage> reset(core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -828,14 +778,14 @@ class BuildbucketApi {
       ApiRetryRequestMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -881,6 +831,8 @@ class BuildbucketApi {
   /// - "INFRA_FAILURE"
   /// - "INVALID_BUILD_DEFINITION"
   ///
+  /// [includeExperimental] - null
+  ///
   /// [maxBuilds] - null
   ///
   /// [result] - null
@@ -920,6 +872,7 @@ class BuildbucketApi {
       core.String creationTsHigh,
       core.String creationTsLow,
       core.String failureReason,
+      core.bool includeExperimental,
       core.int maxBuilds,
       core.String result,
       core.String retryOf,
@@ -928,7 +881,7 @@ class BuildbucketApi {
       core.List<core.String> tag,
       core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
@@ -954,6 +907,9 @@ class BuildbucketApi {
     }
     if (failureReason != null) {
       _queryParams["failure_reason"] = [failureReason];
+    }
+    if (includeExperimental != null) {
+      _queryParams["include_experimental"] = ["${includeExperimental}"];
     }
     if (maxBuilds != null) {
       _queryParams["max_builds"] = ["${maxBuilds}"];
@@ -1011,14 +967,14 @@ class BuildbucketApi {
       ApiStartRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -1060,14 +1016,14 @@ class BuildbucketApi {
       ApiSucceedRequestBodyMessage request, core.String id,
       {core.String $fields}) {
     var _url = null;
-    var _queryParams = new core.Map();
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
     var _uploadOptions = null;
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
     if (request != null) {
-      _body = convert.JSON.encode((request).toJson());
+      _body = convert.json.encode((request).toJson());
     }
     if (id == null) {
       throw new core.ArgumentError("Parameter id is required.");
@@ -1181,7 +1137,7 @@ class ApiCancelBatchRequestMessage {
 
   ApiCancelBatchRequestMessage.fromJson(core.Map _json) {
     if (_json.containsKey("build_ids")) {
-      buildIds = _json["build_ids"];
+      buildIds = (_json["build_ids"] as core.List).cast<core.String>();
     }
     if (_json.containsKey("result_details_json")) {
       resultDetailsJson = _json["result_details_json"];
@@ -1202,14 +1158,18 @@ class ApiCancelBatchRequestMessage {
 }
 
 class ApiCancelBatchResponseMessage {
+  ApiErrorMessage error;
   core.List<ApiCancelBatchResponseMessageOneResult> results;
 
   ApiCancelBatchResponseMessage();
 
   ApiCancelBatchResponseMessage.fromJson(core.Map _json) {
+    if (_json.containsKey("error")) {
+      error = new ApiErrorMessage.fromJson(_json["error"]);
+    }
     if (_json.containsKey("results")) {
-      results = _json["results"]
-          .map((value) =>
+      results = (_json["results"] as core.List)
+          .map<ApiCancelBatchResponseMessageOneResult>((value) =>
               new ApiCancelBatchResponseMessageOneResult.fromJson(value))
           .toList();
     }
@@ -1218,6 +1178,9 @@ class ApiCancelBatchResponseMessage {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (error != null) {
+      _json["error"] = (error).toJson();
+    }
     if (results != null) {
       _json["results"] = results.map((value) => (value).toJson()).toList();
     }
@@ -1302,6 +1265,7 @@ class ApiCommonBuildMessage {
   core.String completedTs;
   core.String createdBy;
   core.String createdTs;
+  core.bool experimental;
 
   ///
   /// Possible string values are:
@@ -1314,6 +1278,7 @@ class ApiCommonBuildMessage {
   core.String leaseExpirationTs;
   core.String leaseKey;
   core.String parametersJson;
+  core.String project;
 
   ///
   /// Possible string values are:
@@ -1323,6 +1288,7 @@ class ApiCommonBuildMessage {
   core.String result;
   core.String resultDetailsJson;
   core.String retryOf;
+  core.String serviceAccount;
   core.String startedTs;
 
   ///
@@ -1361,6 +1327,9 @@ class ApiCommonBuildMessage {
     if (_json.containsKey("created_ts")) {
       createdTs = _json["created_ts"];
     }
+    if (_json.containsKey("experimental")) {
+      experimental = _json["experimental"];
+    }
     if (_json.containsKey("failure_reason")) {
       failureReason = _json["failure_reason"];
     }
@@ -1376,6 +1345,9 @@ class ApiCommonBuildMessage {
     if (_json.containsKey("parameters_json")) {
       parametersJson = _json["parameters_json"];
     }
+    if (_json.containsKey("project")) {
+      project = _json["project"];
+    }
     if (_json.containsKey("result")) {
       result = _json["result"];
     }
@@ -1384,6 +1356,9 @@ class ApiCommonBuildMessage {
     }
     if (_json.containsKey("retry_of")) {
       retryOf = _json["retry_of"];
+    }
+    if (_json.containsKey("service_account")) {
+      serviceAccount = _json["service_account"];
     }
     if (_json.containsKey("started_ts")) {
       startedTs = _json["started_ts"];
@@ -1395,7 +1370,7 @@ class ApiCommonBuildMessage {
       statusChangedTs = _json["status_changed_ts"];
     }
     if (_json.containsKey("tags")) {
-      tags = _json["tags"];
+      tags = (_json["tags"] as core.List).cast<core.String>();
     }
     if (_json.containsKey("updated_ts")) {
       updatedTs = _json["updated_ts"];
@@ -1432,6 +1407,9 @@ class ApiCommonBuildMessage {
     if (createdTs != null) {
       _json["created_ts"] = createdTs;
     }
+    if (experimental != null) {
+      _json["experimental"] = experimental;
+    }
     if (failureReason != null) {
       _json["failure_reason"] = failureReason;
     }
@@ -1447,6 +1425,9 @@ class ApiCommonBuildMessage {
     if (parametersJson != null) {
       _json["parameters_json"] = parametersJson;
     }
+    if (project != null) {
+      _json["project"] = project;
+    }
     if (result != null) {
       _json["result"] = result;
     }
@@ -1455,6 +1436,9 @@ class ApiCommonBuildMessage {
     }
     if (retryOf != null) {
       _json["retry_of"] = retryOf;
+    }
+    if (serviceAccount != null) {
+      _json["service_account"] = serviceAccount;
     }
     if (startedTs != null) {
       _json["started_ts"] = startedTs;
@@ -1507,6 +1491,7 @@ class ApiErrorMessage {
 
   ///
   /// Possible string values are:
+  /// - "BUILDER_NOT_FOUND"
   /// - "BUILD_IS_COMPLETED"
   /// - "BUILD_NOT_FOUND"
   /// - "CANNOT_LEASE_BUILD"
@@ -1562,7 +1547,7 @@ class ApiFailRequestBodyMessage {
       leaseKey = _json["lease_key"];
     }
     if (_json.containsKey("new_tags")) {
-      newTags = _json["new_tags"];
+      newTags = (_json["new_tags"] as core.List).cast<core.String>();
     }
     if (_json.containsKey("result_details_json")) {
       resultDetailsJson = _json["result_details_json"];
@@ -1601,8 +1586,8 @@ class ApiHeartbeatBatchRequestMessage {
 
   ApiHeartbeatBatchRequestMessage.fromJson(core.Map _json) {
     if (_json.containsKey("heartbeats")) {
-      heartbeats = _json["heartbeats"]
-          .map((value) =>
+      heartbeats = (_json["heartbeats"] as core.List)
+          .map<ApiHeartbeatBatchRequestMessageOneHeartbeat>((value) =>
               new ApiHeartbeatBatchRequestMessageOneHeartbeat.fromJson(value))
           .toList();
     }
@@ -1655,14 +1640,18 @@ class ApiHeartbeatBatchRequestMessageOneHeartbeat {
 }
 
 class ApiHeartbeatBatchResponseMessage {
+  ApiErrorMessage error;
   core.List<ApiHeartbeatBatchResponseMessageOneHeartbeatResult> results;
 
   ApiHeartbeatBatchResponseMessage();
 
   ApiHeartbeatBatchResponseMessage.fromJson(core.Map _json) {
+    if (_json.containsKey("error")) {
+      error = new ApiErrorMessage.fromJson(_json["error"]);
+    }
     if (_json.containsKey("results")) {
-      results = _json["results"]
-          .map((value) =>
+      results = (_json["results"] as core.List)
+          .map<ApiHeartbeatBatchResponseMessageOneHeartbeatResult>((value) =>
               new ApiHeartbeatBatchResponseMessageOneHeartbeatResult.fromJson(
                   value))
           .toList();
@@ -1672,6 +1661,9 @@ class ApiHeartbeatBatchResponseMessage {
   core.Map<core.String, core.Object> toJson() {
     final core.Map<core.String, core.Object> _json =
         new core.Map<core.String, core.Object>();
+    if (error != null) {
+      _json["error"] = (error).toJson();
+    }
     if (results != null) {
       _json["results"] = results.map((value) => (value).toJson()).toList();
     }
@@ -1763,34 +1755,6 @@ class ApiLeaseRequestBodyMessage {
   }
 }
 
-class ApiLongestPendingTimeResponse {
-  ApiErrorMessage error;
-  core.double longestPendingTimeSec;
-
-  ApiLongestPendingTimeResponse();
-
-  ApiLongestPendingTimeResponse.fromJson(core.Map _json) {
-    if (_json.containsKey("error")) {
-      error = new ApiErrorMessage.fromJson(_json["error"]);
-    }
-    if (_json.containsKey("longest_pending_time_sec")) {
-      longestPendingTimeSec = _json["longest_pending_time_sec"];
-    }
-  }
-
-  core.Map<core.String, core.Object> toJson() {
-    final core.Map<core.String, core.Object> _json =
-        new core.Map<core.String, core.Object>();
-    if (error != null) {
-      _json["error"] = (error).toJson();
-    }
-    if (longestPendingTimeSec != null) {
-      _json["longest_pending_time_sec"] = longestPendingTimeSec;
-    }
-    return _json;
-  }
-}
-
 class ApiPauseResponse {
   ApiPauseResponse();
 
@@ -1845,8 +1809,9 @@ class ApiPutBatchRequestMessage {
 
   ApiPutBatchRequestMessage.fromJson(core.Map _json) {
     if (_json.containsKey("builds")) {
-      builds = _json["builds"]
-          .map((value) => new ApiPutRequestMessage.fromJson(value))
+      builds = (_json["builds"] as core.List)
+          .map<ApiPutRequestMessage>(
+              (value) => new ApiPutRequestMessage.fromJson(value))
           .toList();
     }
   }
@@ -1872,8 +1837,8 @@ class ApiPutBatchResponseMessage {
       error = new ApiErrorMessage.fromJson(_json["error"]);
     }
     if (_json.containsKey("results")) {
-      results = _json["results"]
-          .map((value) =>
+      results = (_json["results"] as core.List)
+          .map<ApiPutBatchResponseMessageOneResult>((value) =>
               new ApiPutBatchResponseMessageOneResult.fromJson(value))
           .toList();
     }
@@ -1938,6 +1903,7 @@ class ApiPutRequestMessage {
   /// - "PROD"
   core.String canaryPreference;
   core.String clientOperationId;
+  core.bool experimental;
   core.String leaseExpirationTs;
   core.String parametersJson;
   ApiPubSubCallbackMessage pubsubCallback;
@@ -1955,6 +1921,9 @@ class ApiPutRequestMessage {
     if (_json.containsKey("client_operation_id")) {
       clientOperationId = _json["client_operation_id"];
     }
+    if (_json.containsKey("experimental")) {
+      experimental = _json["experimental"];
+    }
     if (_json.containsKey("lease_expiration_ts")) {
       leaseExpirationTs = _json["lease_expiration_ts"];
     }
@@ -1966,7 +1935,7 @@ class ApiPutRequestMessage {
           new ApiPubSubCallbackMessage.fromJson(_json["pubsub_callback"]);
     }
     if (_json.containsKey("tags")) {
-      tags = _json["tags"];
+      tags = (_json["tags"] as core.List).cast<core.String>();
     }
   }
 
@@ -1981,6 +1950,9 @@ class ApiPutRequestMessage {
     }
     if (clientOperationId != null) {
       _json["client_operation_id"] = clientOperationId;
+    }
+    if (experimental != null) {
+      _json["experimental"] = experimental;
     }
     if (leaseExpirationTs != null) {
       _json["lease_expiration_ts"] = leaseExpirationTs;
@@ -2044,8 +2016,9 @@ class ApiSearchResponseMessage {
 
   ApiSearchResponseMessage.fromJson(core.Map _json) {
     if (_json.containsKey("builds")) {
-      builds = _json["builds"]
-          .map((value) => new ApiCommonBuildMessage.fromJson(value))
+      builds = (_json["builds"] as core.List)
+          .map<ApiCommonBuildMessage>(
+              (value) => new ApiCommonBuildMessage.fromJson(value))
           .toList();
     }
     if (_json.containsKey("error")) {
@@ -2120,7 +2093,7 @@ class ApiSucceedRequestBodyMessage {
       leaseKey = _json["lease_key"];
     }
     if (_json.containsKey("new_tags")) {
-      newTags = _json["new_tags"];
+      newTags = (_json["new_tags"] as core.List).cast<core.String>();
     }
     if (_json.containsKey("result_details_json")) {
       resultDetailsJson = _json["result_details_json"];

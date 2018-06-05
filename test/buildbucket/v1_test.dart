@@ -22,13 +22,13 @@ class HttpServerMock extends http.BaseClient {
     if (_expectJson) {
       return request
           .finalize()
-          .transform(convert.UTF8.decoder)
+          .transform(convert.utf8.decoder)
           .join('')
           .then((core.String jsonString) {
         if (jsonString.isEmpty) {
           return _callback(request, null);
         } else {
-          return _callback(request, convert.JSON.decode(jsonString));
+          return _callback(request, convert.json.decode(jsonString));
         }
       });
     } else {
@@ -46,7 +46,7 @@ class HttpServerMock extends http.BaseClient {
 
 http.StreamedResponse stringResponse(core.int status,
     core.Map<core.String, core.String> headers, core.String body) {
-  var stream = new async.Stream.fromIterable([convert.UTF8.encode(body)]);
+  var stream = new async.Stream.fromIterable([convert.utf8.encode(body)]);
   return new http.StreamedResponse(stream, status, headers: headers);
 }
 
@@ -152,6 +152,7 @@ buildApiCancelBatchResponseMessage() {
   var o = new api.ApiCancelBatchResponseMessage();
   buildCounterApiCancelBatchResponseMessage++;
   if (buildCounterApiCancelBatchResponseMessage < 3) {
+    o.error = buildApiErrorMessage();
     o.results = buildUnnamed1();
   }
   buildCounterApiCancelBatchResponseMessage--;
@@ -161,6 +162,7 @@ buildApiCancelBatchResponseMessage() {
 checkApiCancelBatchResponseMessage(api.ApiCancelBatchResponseMessage o) {
   buildCounterApiCancelBatchResponseMessage++;
   if (buildCounterApiCancelBatchResponseMessage < 3) {
+    checkApiErrorMessage(o.error);
     checkUnnamed1(o.results);
   }
   buildCounterApiCancelBatchResponseMessage--;
@@ -234,14 +236,17 @@ buildApiCommonBuildMessage() {
     o.completedTs = "foo";
     o.createdBy = "foo";
     o.createdTs = "foo";
+    o.experimental = true;
     o.failureReason = "foo";
     o.id = "foo";
     o.leaseExpirationTs = "foo";
     o.leaseKey = "foo";
     o.parametersJson = "foo";
+    o.project = "foo";
     o.result = "foo";
     o.resultDetailsJson = "foo";
     o.retryOf = "foo";
+    o.serviceAccount = "foo";
     o.startedTs = "foo";
     o.status = "foo";
     o.statusChangedTs = "foo";
@@ -264,14 +269,17 @@ checkApiCommonBuildMessage(api.ApiCommonBuildMessage o) {
     unittest.expect(o.completedTs, unittest.equals('foo'));
     unittest.expect(o.createdBy, unittest.equals('foo'));
     unittest.expect(o.createdTs, unittest.equals('foo'));
+    unittest.expect(o.experimental, unittest.isTrue);
     unittest.expect(o.failureReason, unittest.equals('foo'));
     unittest.expect(o.id, unittest.equals('foo'));
     unittest.expect(o.leaseExpirationTs, unittest.equals('foo'));
     unittest.expect(o.leaseKey, unittest.equals('foo'));
     unittest.expect(o.parametersJson, unittest.equals('foo'));
+    unittest.expect(o.project, unittest.equals('foo'));
     unittest.expect(o.result, unittest.equals('foo'));
     unittest.expect(o.resultDetailsJson, unittest.equals('foo'));
     unittest.expect(o.retryOf, unittest.equals('foo'));
+    unittest.expect(o.serviceAccount, unittest.equals('foo'));
     unittest.expect(o.startedTs, unittest.equals('foo'));
     unittest.expect(o.status, unittest.equals('foo'));
     unittest.expect(o.statusChangedTs, unittest.equals('foo'));
@@ -439,6 +447,7 @@ buildApiHeartbeatBatchResponseMessage() {
   var o = new api.ApiHeartbeatBatchResponseMessage();
   buildCounterApiHeartbeatBatchResponseMessage++;
   if (buildCounterApiHeartbeatBatchResponseMessage < 3) {
+    o.error = buildApiErrorMessage();
     o.results = buildUnnamed5();
   }
   buildCounterApiHeartbeatBatchResponseMessage--;
@@ -448,6 +457,7 @@ buildApiHeartbeatBatchResponseMessage() {
 checkApiHeartbeatBatchResponseMessage(api.ApiHeartbeatBatchResponseMessage o) {
   buildCounterApiHeartbeatBatchResponseMessage++;
   if (buildCounterApiHeartbeatBatchResponseMessage < 3) {
+    checkApiErrorMessage(o.error);
     checkUnnamed5(o.results);
   }
   buildCounterApiHeartbeatBatchResponseMessage--;
@@ -515,27 +525,6 @@ checkApiLeaseRequestBodyMessage(api.ApiLeaseRequestBodyMessage o) {
     unittest.expect(o.leaseExpirationTs, unittest.equals('foo'));
   }
   buildCounterApiLeaseRequestBodyMessage--;
-}
-
-core.int buildCounterApiLongestPendingTimeResponse = 0;
-buildApiLongestPendingTimeResponse() {
-  var o = new api.ApiLongestPendingTimeResponse();
-  buildCounterApiLongestPendingTimeResponse++;
-  if (buildCounterApiLongestPendingTimeResponse < 3) {
-    o.error = buildApiErrorMessage();
-    o.longestPendingTimeSec = 42.0;
-  }
-  buildCounterApiLongestPendingTimeResponse--;
-  return o;
-}
-
-checkApiLongestPendingTimeResponse(api.ApiLongestPendingTimeResponse o) {
-  buildCounterApiLongestPendingTimeResponse++;
-  if (buildCounterApiLongestPendingTimeResponse < 3) {
-    checkApiErrorMessage(o.error);
-    unittest.expect(o.longestPendingTimeSec, unittest.equals(42.0));
-  }
-  buildCounterApiLongestPendingTimeResponse--;
 }
 
 core.int buildCounterApiPauseResponse = 0;
@@ -687,6 +676,7 @@ buildApiPutRequestMessage() {
     o.bucket = "foo";
     o.canaryPreference = "foo";
     o.clientOperationId = "foo";
+    o.experimental = true;
     o.leaseExpirationTs = "foo";
     o.parametersJson = "foo";
     o.pubsubCallback = buildApiPubSubCallbackMessage();
@@ -702,6 +692,7 @@ checkApiPutRequestMessage(api.ApiPutRequestMessage o) {
     unittest.expect(o.bucket, unittest.equals('foo'));
     unittest.expect(o.canaryPreference, unittest.equals('foo'));
     unittest.expect(o.clientOperationId, unittest.equals('foo'));
+    unittest.expect(o.experimental, unittest.isTrue);
     unittest.expect(o.leaseExpirationTs, unittest.equals('foo'));
     unittest.expect(o.parametersJson, unittest.equals('foo'));
     checkApiPubSubCallbackMessage(o.pubsubCallback);
@@ -1016,14 +1007,6 @@ main() {
     });
   });
 
-  unittest.group("obj-schema-ApiLongestPendingTimeResponse", () {
-    unittest.test("to-json--from-json", () {
-      var o = buildApiLongestPendingTimeResponse();
-      var od = new api.ApiLongestPendingTimeResponse.fromJson(o.toJson());
-      checkApiLongestPendingTimeResponse(od);
-    });
-  });
-
   unittest.group("obj-schema-ApiPauseResponse", () {
     unittest.test("to-json--from-json", () {
       var o = buildApiPauseResponse();
@@ -1128,7 +1111,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1194,7 +1177,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1215,12 +1198,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .cancel(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -1250,7 +1233,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1271,11 +1254,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiCancelBatchResponseMessage());
+        var resp = convert.json.encode(buildApiCancelBatchResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res.cancelBatch(arg_request, $fields: arg_$fields).then(
-          unittest.expectAsync1(((api.ApiCancelBatchResponseMessage response) {
+      res
+          .cancelBatch(arg_request, $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
         checkApiCancelBatchResponseMessage(response);
       })));
     });
@@ -1314,7 +1298,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1339,14 +1323,13 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiDeleteManyBuildsResponse());
+        var resp = convert.json.encode(buildApiDeleteManyBuildsResponse());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .deleteManyBuilds(arg_bucket, arg_status,
               createdBy: arg_createdBy, tag: arg_tag, $fields: arg_$fields)
-          .then(unittest
-              .expectAsync1(((api.ApiDeleteManyBuildsResponse response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiDeleteManyBuildsResponse(response);
       })));
     });
@@ -1386,7 +1369,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1407,12 +1390,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .fail(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -1442,7 +1425,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1463,12 +1446,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .get(arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -1498,7 +1481,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1519,12 +1502,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBucketMessage());
+        var resp = convert.json.encode(buildApiBucketMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .getBucket(arg_bucket, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBucketMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBucketMessage(response);
       })));
     });
@@ -1564,7 +1547,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1585,12 +1568,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .heartbeat(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -1620,7 +1603,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1641,11 +1624,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiHeartbeatBatchResponseMessage());
+        var resp = convert.json.encode(buildApiHeartbeatBatchResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res.heartbeatBatch(arg_request, $fields: arg_$fields).then(unittest
-          .expectAsync1(((api.ApiHeartbeatBatchResponseMessage response) {
+      res
+          .heartbeatBatch(arg_request, $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
         checkApiHeartbeatBatchResponseMessage(response);
       })));
     });
@@ -1685,7 +1669,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1706,71 +1690,13 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .lease(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
-      })));
-    });
-
-    unittest.test("method--longestPendingTime", () {
-      var mock = new HttpServerMock();
-      api.BuildbucketApi res = new api.BuildbucketApi(mock);
-      var arg_bucket = "foo";
-      var arg_builder = "foo";
-      var arg_$fields = "foo";
-      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
-        var path = (req.url).path;
-        var pathOffset = 0;
-        var index;
-        var subPart;
-        unittest.expect(path.substring(pathOffset, pathOffset + 9),
-            unittest.equals("/_ah/api/"));
-        pathOffset += 9;
-        unittest.expect(path.substring(pathOffset, pathOffset + 15),
-            unittest.equals("buildbucket/v1/"));
-        pathOffset += 15;
-        unittest.expect(path.substring(pathOffset, pathOffset + 28),
-            unittest.equals("metrics/longest-pending-time"));
-        pathOffset += 28;
-
-        var query = (req.url).query;
-        var queryOffset = 0;
-        var queryMap = {};
-        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
-        parseBool(n) {
-          if (n == "true") return true;
-          if (n == "false") return false;
-          if (n == null) return null;
-          throw new core.ArgumentError("Invalid boolean: $n");
-        }
-
-        if (query.length > 0) {
-          for (var part in query.split("&")) {
-            var keyvalue = part.split("=");
-            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
-                core.Uri.decodeQueryComponent(keyvalue[1]));
-          }
-        }
-        unittest.expect(queryMap["bucket"].first, unittest.equals(arg_bucket));
-        unittest.expect(
-            queryMap["builder"].first, unittest.equals(arg_builder));
-        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
-
-        var h = {
-          "content-type": "application/json; charset=utf-8",
-        };
-        var resp = convert.JSON.encode(buildApiLongestPendingTimeResponse());
-        return new async.Future.value(stringResponse(200, h, resp));
-      }), true);
-      res
-          .longestPendingTime(arg_bucket, arg_builder, $fields: arg_$fields)
-          .then(unittest
-              .expectAsync1(((api.ApiLongestPendingTimeResponse response) {
-        checkApiLongestPendingTimeResponse(response);
       })));
     });
 
@@ -1806,7 +1732,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1829,12 +1755,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiPauseResponse());
+        var resp = convert.json.encode(buildApiPauseResponse());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .pause(arg_bucket, arg_isPaused, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiPauseResponse response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiPauseResponse(response);
       })));
     });
@@ -1863,7 +1789,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1889,7 +1815,7 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiSearchResponseMessage());
+        var resp = convert.json.encode(buildApiSearchResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
@@ -1898,7 +1824,7 @@ main() {
               maxBuilds: arg_maxBuilds,
               startCursor: arg_startCursor,
               $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiSearchResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiSearchResponseMessage(response);
       })));
     });
@@ -1928,7 +1854,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -1949,12 +1875,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .put(arg_request, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -1984,7 +1910,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2005,11 +1931,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiPutBatchResponseMessage());
+        var resp = convert.json.encode(buildApiPutBatchResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
-      res.putBatch(arg_request, $fields: arg_$fields).then(
-          unittest.expectAsync1(((api.ApiPutBatchResponseMessage response) {
+      res
+          .putBatch(arg_request, $fields: arg_$fields)
+          .then(unittest.expectAsync1(((response) {
         checkApiPutBatchResponseMessage(response);
       })));
     });
@@ -2045,7 +1972,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2066,12 +1993,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .reset(arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -2111,7 +2038,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2132,12 +2059,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .retry(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -2152,6 +2079,7 @@ main() {
       var arg_creationTsHigh = "foo";
       var arg_creationTsLow = "foo";
       var arg_failureReason = "foo";
+      var arg_includeExperimental = true;
       var arg_maxBuilds = 42;
       var arg_result = "foo";
       var arg_retryOf = "foo";
@@ -2176,7 +2104,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2205,6 +2133,8 @@ main() {
             unittest.equals(arg_creationTsLow));
         unittest.expect(queryMap["failure_reason"].first,
             unittest.equals(arg_failureReason));
+        unittest.expect(queryMap["include_experimental"].first,
+            unittest.equals("$arg_includeExperimental"));
         unittest.expect(core.int.parse(queryMap["max_builds"].first),
             unittest.equals(arg_maxBuilds));
         unittest.expect(queryMap["result"].first, unittest.equals(arg_result));
@@ -2219,7 +2149,7 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiSearchResponseMessage());
+        var resp = convert.json.encode(buildApiSearchResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
@@ -2231,6 +2161,7 @@ main() {
               creationTsHigh: arg_creationTsHigh,
               creationTsLow: arg_creationTsLow,
               failureReason: arg_failureReason,
+              includeExperimental: arg_includeExperimental,
               maxBuilds: arg_maxBuilds,
               result: arg_result,
               retryOf: arg_retryOf,
@@ -2238,7 +2169,7 @@ main() {
               status: arg_status,
               tag: arg_tag,
               $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiSearchResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiSearchResponseMessage(response);
       })));
     });
@@ -2278,7 +2209,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2299,12 +2230,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .start(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });
@@ -2344,7 +2275,7 @@ main() {
 
         var query = (req.url).query;
         var queryOffset = 0;
-        var queryMap = {};
+        var queryMap = <core.String, core.List<core.String>>{};
         addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
         parseBool(n) {
           if (n == "true") return true;
@@ -2365,12 +2296,12 @@ main() {
         var h = {
           "content-type": "application/json; charset=utf-8",
         };
-        var resp = convert.JSON.encode(buildApiBuildResponseMessage());
+        var resp = convert.json.encode(buildApiBuildResponseMessage());
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
           .succeed(arg_request, arg_id, $fields: arg_$fields)
-          .then(unittest.expectAsync1(((api.ApiBuildResponseMessage response) {
+          .then(unittest.expectAsync1(((response) {
         checkApiBuildResponseMessage(response);
       })));
     });

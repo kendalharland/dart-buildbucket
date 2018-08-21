@@ -2,10 +2,10 @@ name: buildbucket
 authors:
         - Kendal Harland <kendal@kendalhar.land>
 homepage: https://github.com/kharland/dart-buildbucket
-version: 0.2.0
+version: 0.3.0
 description: Auto-generated client libraries for the buildbucket API.
 environment:
-  sdk: '>=2.0.0-dev.22.0 <2.0.0'
+  sdk: '>=2.0.0-dev.22.0 <3.0.0'
 dependencies:
   # This is a private package dependency used by the generated client stubs.
   _discoveryapis_commons: '>=0.1.0 <0.2.0'

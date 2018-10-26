@@ -34,9 +34,7 @@ class BuildbucketApi {
   ///
   /// Request parameters:
   ///
-  /// [tag] - null
-  ///
-  /// [shards] - null
+  /// [tagKey] - null
   ///
   /// [$fields] - Selector specifying which fields to include in a partial
   /// response.
@@ -46,8 +44,7 @@ class BuildbucketApi {
   ///
   /// If the used [http.Client] completes with an error when making a REST call,
   /// this method will complete with the same error.
-  async.Future backfillTagIndex(core.String tag, core.String shards,
-      {core.String $fields}) {
+  async.Future backfillTagIndex(core.String tagKey, {core.String $fields}) {
     var _url = null;
     var _queryParams = new core.Map<core.String, core.List<core.String>>();
     var _uploadMedia = null;
@@ -55,14 +52,10 @@ class BuildbucketApi {
     var _downloadOptions = commons.DownloadOptions.Metadata;
     var _body = null;
 
-    if (tag == null) {
-      throw new core.ArgumentError("Parameter tag is required.");
+    if (tagKey == null) {
+      throw new core.ArgumentError("Parameter tagKey is required.");
     }
-    _queryParams["tag"] = [tag];
-    if (shards == null) {
-      throw new core.ArgumentError("Parameter shards is required.");
-    }
-    _queryParams["shards"] = [shards];
+    _queryParams["tag_key"] = [tagKey];
     if ($fields != null) {
       _queryParams["fields"] = [$fields];
     }
@@ -711,6 +704,43 @@ class BuildbucketApi {
         downloadOptions: _downloadOptions);
     return _response
         .then((data) => new ApiPutBatchResponseMessage.fromJson(data));
+  }
+
+  /// Reputs every build, recomputing its properties.
+  ///
+  /// Request parameters:
+  ///
+  /// [$fields] - Selector specifying which fields to include in a partial
+  /// response.
+  ///
+  /// Completes with a [commons.ApiRequestError] if the API endpoint returned an
+  /// error.
+  ///
+  /// If the used [http.Client] completes with an error when making a REST call,
+  /// this method will complete with the same error.
+  async.Future reputBuilds({core.String $fields}) {
+    var _url = null;
+    var _queryParams = new core.Map<core.String, core.List<core.String>>();
+    var _uploadMedia = null;
+    var _uploadOptions = null;
+    var _downloadOptions = commons.DownloadOptions.Metadata;
+    var _body = null;
+
+    if ($fields != null) {
+      _queryParams["fields"] = [$fields];
+    }
+
+    _downloadOptions = null;
+
+    _url = 'reput_builds';
+
+    var _response = _requester.request(_url, "POST",
+        body: _body,
+        queryParams: _queryParams,
+        uploadOptions: _uploadOptions,
+        uploadMedia: _uploadMedia,
+        downloadOptions: _downloadOptions);
+    return _response.then((data) => null);
   }
 
   /// Forcibly unleases a build and resets its state to SCHEDULED.

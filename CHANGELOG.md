@@ -1,6 +1,4 @@
-
-## 0.4.0
+## 0.3.1
 
 * Update buildbucket API to newest version
-* Re-generate API client stubs via Dart 2.0 discoveryapis generator
-
+* Re-generate API client stubs via discoveryapis_generator-0.9.10

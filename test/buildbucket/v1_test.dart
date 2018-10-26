@@ -1091,8 +1091,7 @@ main() {
     unittest.test("method--backfillTagIndex", () {
       var mock = new HttpServerMock();
       api.BuildbucketApi res = new api.BuildbucketApi(mock);
-      var arg_tag = "foo";
-      var arg_shards = "foo";
+      var arg_tagKey = "foo";
       var arg_$fields = "foo";
       mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
         var path = (req.url).path;
@@ -1127,8 +1126,7 @@ main() {
                 core.Uri.decodeQueryComponent(keyvalue[1]));
           }
         }
-        unittest.expect(queryMap["tag"].first, unittest.equals(arg_tag));
-        unittest.expect(queryMap["shards"].first, unittest.equals(arg_shards));
+        unittest.expect(queryMap["tag_key"].first, unittest.equals(arg_tagKey));
         unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
 
         var h = {
@@ -1138,7 +1136,7 @@ main() {
         return new async.Future.value(stringResponse(200, h, resp));
       }), true);
       res
-          .backfillTagIndex(arg_tag, arg_shards, $fields: arg_$fields)
+          .backfillTagIndex(arg_tagKey, $fields: arg_$fields)
           .then(unittest.expectAsync1((_) {}));
     });
 
@@ -1939,6 +1937,54 @@ main() {
           .then(unittest.expectAsync1(((response) {
         checkApiPutBatchResponseMessage(response);
       })));
+    });
+
+    unittest.test("method--reputBuilds", () {
+      var mock = new HttpServerMock();
+      api.BuildbucketApi res = new api.BuildbucketApi(mock);
+      var arg_$fields = "foo";
+      mock.register(unittest.expectAsync2((http.BaseRequest req, json) {
+        var path = (req.url).path;
+        var pathOffset = 0;
+        var index;
+        var subPart;
+        unittest.expect(path.substring(pathOffset, pathOffset + 9),
+            unittest.equals("/_ah/api/"));
+        pathOffset += 9;
+        unittest.expect(path.substring(pathOffset, pathOffset + 15),
+            unittest.equals("buildbucket/v1/"));
+        pathOffset += 15;
+        unittest.expect(path.substring(pathOffset, pathOffset + 12),
+            unittest.equals("reput_builds"));
+        pathOffset += 12;
+
+        var query = (req.url).query;
+        var queryOffset = 0;
+        var queryMap = <core.String, core.List<core.String>>{};
+        addQueryParam(n, v) => queryMap.putIfAbsent(n, () => []).add(v);
+        parseBool(n) {
+          if (n == "true") return true;
+          if (n == "false") return false;
+          if (n == null) return null;
+          throw new core.ArgumentError("Invalid boolean: $n");
+        }
+
+        if (query.length > 0) {
+          for (var part in query.split("&")) {
+            var keyvalue = part.split("=");
+            addQueryParam(core.Uri.decodeQueryComponent(keyvalue[0]),
+                core.Uri.decodeQueryComponent(keyvalue[1]));
+          }
+        }
+        unittest.expect(queryMap["fields"].first, unittest.equals(arg_$fields));
+
+        var h = {
+          "content-type": "application/json; charset=utf-8",
+        };
+        var resp = "";
+        return new async.Future.value(stringResponse(200, h, resp));
+      }), true);
+      res.reputBuilds($fields: arg_$fields).then(unittest.expectAsync1((_) {}));
     });
 
     unittest.test("method--reset", () {
